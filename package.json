@@ -1,0 +1,40 @@
+{
+  "name": "backend-node",
+  "version": "1.0.0",
+  "description": "The Online Assessment Platform is a MERN stack web application designed to conduct and manage online examinations seamlessly",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shyamala-create/Online-Assessment-Backend.git"
+  },
+  "keywords": [
+    "express",
+    "mongoose",
+    "dotenv",
+    "cors",
+    "helmet",
+    "express-rate-limit",
+    "jsonweb",
+    "token",
+    "bcrypt.js"
+  ],
+  "author": "Shyamala M S",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/shyamala-create/Online-Assessment-Backend/issues"
+  },
+  "homepage": "https://github.com/shyamala-create/Online-Assessment-Backend#readme",
+  "dependencies": {
+    "bcryptjs": "^3.0.2",
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.1",
+    "express": "^5.1.0",
+    "express-rate-limit": "^8.0.1",
+    "helmet": "^8.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.17.1"
+  }
+}
