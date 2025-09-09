@@ -1,4 +1,5 @@
 import mongoose, { Document, Schema } from "mongoose";
+import { ValidationError } from "express-validator";
 
 export interface IUser extends Document {
   firstName: string;
@@ -27,37 +28,36 @@ const userSchema: Schema<IUser> = new Schema<IUser>(
       required: [true, "Last name is required"],
       trim: true,
     },
-    // email: {
-    //   type: String,
-    //   required: [true, "Email is required"], // ✅ fixed typo
-    //   unique: true,
-    //   lowercase: true,
-    // },
-    // password: {
-    //   type: String,
-    //   required: [true, "Password is required"],
-    //   minlength: 6,
-    // },
-    // role: {
-    //   type: String,
-    //   enum: ["admin", "candidate"],
-    //   default: "candidate",
-    // },
-    // examsTaken: [
-    //   {
-    //     examId: {
-    //       type: Schema.Types.ObjectId,
-    //       ref: "Exam",
-    //     },
-    //     score: {
-    //       type: Number,
-    //     },
-    //     attemptedAt: {
-    //       type: Date,
-    //       default: Date.now,
-    //     },
-    //   },
-    // ],
+    email: {
+      type: String,
+      required: [true, "Email is required"],
+      unique: true,
+      lowercase: true,
+    },
+    password: {
+      type: String,
+      required: [true, "Password is required"],
+      minlength: 6,
+    },
+    role: {
+      type: String,
+      enum: ["admin", "candidate", "student"],
+    },
+    examsTaken: [
+      {
+        examId: {
+          type: Schema.Types.ObjectId,
+          ref: "Exam",
+        },
+        score: {
+          type: Number,
+        },
+        attemptedAt: {
+          type: Date,
+          default: Date.now,
+        },
+      },
+    ],
   },
   { timestamps: true }
 );
