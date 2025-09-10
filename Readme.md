@@ -29,3 +29,8 @@ The Online Assessment Platform is a MERN stack web application designed to condu
 - Authentication: JWT (JSON Web Token)
 
 - Deployment: [Render] + GitHub
+
+## To do 
+- frontend implement UI for Admin page, Student page
+- backend implement API for Admin page, Student page
+- integrate frontend with backend

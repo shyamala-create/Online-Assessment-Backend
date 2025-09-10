@@ -85,7 +85,7 @@ const AuthController = {
         { id: user._id, role: user.role },
         process.env.JWT_SECRET as string,
         {
-          expiresIn: "1h",
+          expiresIn: "7d",
         }
       );
 
@@ -121,7 +121,9 @@ const AuthController = {
       }
 
       // verify token
-      const decoded = jwt.verify(token, process.env.JWT_SECRET as string) as { id: string };
+      const decoded = jwt.verify(token, process.env.JWT_SECRET as string) as {
+        id: string;
+      };
 
       const user = await userSchema.findById(decoded.id).select("-password");
       if (!user) {
@@ -139,6 +141,48 @@ const AuthController = {
     } catch (err) {
       res.status(500).json({
         message: "Error fetching user info",
+        error: err instanceof Error ? err.message : err,
+      });
+    }
+  },
+  updateProfile: async (req: Request, res: Response) => {
+    try {
+      const token = req.cookies?.token;
+      if (!token) return res.status(401).json({ message: "Unauthorized" });
+
+      const decoded = jwt.verify(token, process.env.JWT_SECRET as string) as {
+        id: string;
+      };
+
+      const updatedUser = await userSchema
+        .findByIdAndUpdate(
+          decoded.id,
+          {
+            firstName: req.body.firstName,
+            lastName: req.body.lastName,
+            email: req.body.email,
+          },
+          { new: true, runValidators: true }
+        )
+        .select("-password");
+
+      res.status(200).json(updatedUser);
+    } catch (err) {
+      res.status(500).json({ message: "Error updating profile", error: err });
+    }
+  },
+
+  logout: async (req: Request, res: Response) => {
+    try {
+      res.clearCookie("token", {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production", // only HTTPS in prod
+        sameSite: "strict",
+      });
+      return res.status(200).json({ message: "Logged out successfully" });
+    } catch (err) {
+      return res.status(500).json({
+        message: "Error logging out",
         error: err instanceof Error ? err.message : err,
       });
     }

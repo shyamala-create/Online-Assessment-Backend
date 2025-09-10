@@ -7,7 +7,7 @@ export interface IUser extends Document {
   email: string;
   password: string;
   role: "admin" | "candidate";
-  examsTaken: {
+  enrolledExams: {
     examId: mongoose.Types.ObjectId;
     score: number;
     attemptedAt: Date;
@@ -43,7 +43,7 @@ const userSchema: Schema<IUser> = new Schema<IUser>(
       type: String,
       enum: ["admin", "candidate", "student"],
     },
-    examsTaken: [
+    enrolledExams: [
       {
         examId: {
           type: Schema.Types.ObjectId,

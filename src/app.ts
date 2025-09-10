@@ -1,7 +1,8 @@
 import express, { Request, Response } from "express";
 import cors from "cors";
 import authRouter from "./routes/authRouter";
-import cookieParser from "cookie-parser";;
+import cookieParser from "cookie-parser";import examRouter from "./routes/examRouter";
+;
 
 const app = express();
 
@@ -17,24 +18,6 @@ app.use(express.json());
 app.use(cookieParser())
 
 app.use('/', authRouter);
-// Routes
-// app.get("/", (req: Request, res: Response) => {
-//   res.send("Server is running 🚀 with MongoDB connected");
-// });
-
-// app.post("/users", async (req: Request, res: Response) => {
-//   const user = new User({
-//     firstName: "Shyamala",
-//     lastName: "M S",
-//     email: "shyamala@96",
-//   });
-
-//   try {
-//     await user.save();
-//     res.status(200).send("User data saved successfully");
-//   } catch (err) {
-//     res.status(500).send("Unable to save user data");
-//   }
-// });
+app.use('/api/exams', examRouter);
 
 export default app;
