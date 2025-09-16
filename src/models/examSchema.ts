@@ -1,4 +1,5 @@
 import mongoose, { Schema, Document } from "mongoose";
+import Question from "../models/questionSchema"; // ensure this exists
 
 export interface IExam extends Document {
   title: string;
