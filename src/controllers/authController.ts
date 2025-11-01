@@ -91,8 +91,8 @@ const AuthController = {
 
       res.cookie("token", token, {
         httpOnly: true,
-        secure: false, // set true in production (with HTTPS)
-        sameSite: "lax",
+        secure: true, // set true in production (with HTTPS)
+        sameSite: "none",
       });
 
       res.status(200).json({
@@ -101,6 +101,7 @@ const AuthController = {
           id: user._id,
           email: user.email,
           role: user.role,
+          token: token,
         },
       });
     } catch (err) {
@@ -139,6 +140,7 @@ const AuthController = {
         lastName: user.lastName,
       });
     } catch (err) {
+      console.log(err);
       res.status(500).json({
         message: "Error fetching user info",
         error: err instanceof Error ? err.message : err,
