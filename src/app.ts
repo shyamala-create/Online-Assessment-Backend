@@ -16,7 +16,7 @@ const app = express();
 //middleware
 app.use(
   cors({
-    origin: ["http://localhost:5173", "https://onlineassessmentplatform.netlify.app"],
+    origin: "https://onlineassessmentplatform.netlify.app",
     credentials: true,
   })
 );
